@@ -1,0 +1,176 @@
+{% extends 'letsocial/base.html' %}
+{% load static %}
+{% block linkcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/postcomment.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="single-post">
+    <div class="post-header">
+        <div class="posthead-item">
+            <div class="posthead-profile">
+                <div class="posthead-profile-img">
+                    {% if postdetail.2 == None %}
+                    <img src="{% static 'letsocial/img/profileavatar.png' %}" class="postprofileimage" alt="">
+                    {% else %}
+                    <img src="{{postdetail.2.uploadedprofileimage.url}}" alt="" class="postprofileimage">
+                    {% endif %}
+                </div>
+                <p>{{postdetail.1.first_name}} {{postdetail.1.last_name}}</p>
+            </div>
+        </div>
+        {% comment %} <div class="posthead-item">
+            <span class="postoption-dropdownmenu-btn"><i class="fas fa-cog"></i> </span>
+            <div class="postoption-dropdownmenu">
+                <a>Report</a>
+            </div>
+        </div> {% endcomment %}
+    </div>
+    {% if postdetail.0.3 != "nocontent" %}
+    <div class="post-content">
+        <p>{{postdetail.0.3}}</p>
+    </div>
+    {% endif %}
+    {% if postdetail.0.2.0 != 'norichcontent' %}
+    <div class="post-rich-content">
+        <div class="post-img">
+            {% for j in postdetail.0.2 %}
+            <img src=/{{j}} alt="" width="100%" height="auto">
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <div class="post-footer">
+        <form action="{% url 'letsocial:postcomment' postdetail.0.0 %}" method="post">
+            {% csrf_token %}
+            <div class="usercommentbox">
+                <div class="usercommentbox-item">
+                    <textarea rows="1" maxlength="200" name="usercommenttext" class="usercommentinput"
+                        id="usercommentinput" placeholder="Write Your Comment here..."></textarea>
+                </div>
+                <div class="usercommentbox-item">
+                    <input type="submit" class="usercommentbtn" value="Post">
+                </div>
+            </div>
+        </form>
+
+        <div class="otheruserscommentbox">
+            
+            {% if postcomments != 'nocomment' %}
+            {% for i in postcomments %}
+            <div class="singlecomment">
+                <div class="singlecomment-part1">
+                    <div class="singlecomment-item">
+                        <div class="singlecomment-profile-image">
+                            {% if i.2 == None %}
+                            <img src="{% static 'letsocial/img/profileavatar.png' %}" class="postprofileimage" alt="">
+                            {% else %}
+                            <img src="{{i.2.uploadedprofileimage.url}}" alt="" class="postprofileimage">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="singlecomment-item comment-text-box">
+                        <p><b>{{i.3.first_name}} {{i.3.last_name}}</b></p>
+                        <p>{{i.1.commenttext}}</p>
+                    </div>
+                    <div class="singlecomment-item">
+                        <p class="comment-postdate">{{i.1.pub_date}}</p>
+                    </div>
+                </div>
+                <div class="singlecomment-part2">
+                    <div class="commentbtnbox">
+                        <a class="replybtn">Reply</a>
+                        <form action="{% url 'letsocial:replycomment' postdetail.0.0 i.0 %}" method="post"
+                            class="showbox">
+                            {% csrf_token %}
+                            <div class="usercommentbox replycommentbox">
+                                <div class="usercommentbox-item">
+                                    <textarea rows="1" maxlength="200" name="replycommenttext" class="usercommentinput"
+                                        id="replycommenttext"></textarea>
+                                </div>
+                                <div class="usercommentbox-item">
+                                    <input type="submit" class="usercommentbtn" value="Post">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    {% if i.4 != 'noreply' %}
+                    <div class="replies-container">
+                        
+                        <a class="seeallrepliesbtn">See all Replies <i class="fas fa-angle-down"></i></a>
+                       
+                        <div class="repliesbox showbox">
+
+                            {% for j in i.4 %}
+                            <div class="singlecomment-part1 reply-commentpart1">
+                                <div class="singlecomment-item ">
+                                    <div class="singlecomment-profile-image">
+                                        {% if j.2 == None %}
+                                        <img src="{% static 'letsocial/img/profileavatar.png' %}"
+                                            class="postprofileimage" alt="">
+                                        {% else %}
+                                        <img src="{{j.2.uploadedprofileimage.url}}" alt="" class="postprofileimage">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="singlecomment-item  comment-text-box">
+                                    <p><b>{{j.3.first_name}} {{j.3.last_name}}</b></p>
+                                    <p>{{j.1.replycommenttext}}</p>
+                                </div>
+                                <div class="singlecomment-item">
+                                    <p class="comment-postdate">{{j.1.pub_date}}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+             <p style="text-align: center;">There is no comments right now.</p>
+            {% endif %}
+        </div>
+        
+
+    </div>
+</div>
+
+<script>
+    var replybtns = document.getElementsByClassName("replybtn");
+    var seeallrepliess = document.getElementsByClassName("seeallrepliesbtn");
+    for (i = 0; i < replybtns.length; i++) {
+        replybtns[i].onclick = function () {
+            checkshowboxclass = this.nextElementSibling.classList
+            if (checkshowboxclass.contains("showbox") == true) {
+                checkshowboxclass.remove("showbox")
+            }
+            else {
+                checkshowboxclass.add("showbox")
+            }
+            // console.log(this.nextElementSibling.classList.contains("showbox"))
+        }
+    }
+
+    for (i = 0; i < seeallrepliess.length; i++) {
+        seeallrepliess[i].onclick = function () {
+            checkshowboxclassforrepliesbox = this.nextElementSibling.classList
+            seeallrepliessymbol = this.firstElementChild.classList
+            if (checkshowboxclassforrepliesbox.contains("showbox") == true) {
+                checkshowboxclassforrepliesbox.remove("showbox")
+                seeallrepliessymbol.add("fa-angle-up")
+                seeallrepliessymbol.remove("fa-angle-down")
+            }
+            else {
+                seeallrepliessymbol.add("fa-angle-down")
+                seeallrepliessymbol.remove("fa-angle-up")
+                checkshowboxclassforrepliesbox.add("showbox")
+            }
+            // console.log(this.nextElementSibling.classList.contains("showbox"))
+        }
+    }
+
+</script>
+{% endblock %}

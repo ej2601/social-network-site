@@ -1,0 +1,375 @@
+{% extends 'letsocial/base.html' %}
+{% load static %}
+{% block linkcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/index.css' %}">{% endblock %}
+
+{% block nav1class %}activenavbtn{% endblock %}
+{% block body %}
+
+<div class="container">
+      {% if profileimage == None %}
+      <div class="userprofileimgbox">
+            {% else %}
+            <div class="userprofileimgbox profileuserimage"
+                  style="background-image: url({{profileimage.uploadedprofileimage.url}}); background-blend-mode:luminosity; background-color: rgb(236, 254, 236);">
+                  <div id="profileimageoption">
+                        <a href="{% url 'letsocial:deleteprofileimage' %}"><i class="fas fa-trash"></i> </a>
+                  </div>
+                  {% endif %}
+                  <label for="updateprofilephotoinput" class="uploadimglabel-profile">
+                        <div class="profile-image-box">
+                              <span class="imguploadbtn-profile">
+                                    {% if profileimage == None %}
+                                    <img src="{% static 'letsocial/img/profileavatar.png' %}" alt="">
+                                    {% else %}
+                                    <img src={{profileimage.uploadedprofileimage.url}} alt="">
+                                    {% endif %}
+                              </span>
+                              <form action="{% url 'letsocial:updateprofilephoto' %}" method="post"
+                                    id="updateprofilephoto" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="file" id="updateprofilephotoinput" name="imguploadbyuser"
+                                          accept="image/*">
+                              </form>
+                        </div>
+                  </label>
+            </div>
+      </div>
+      <div class="user-self-info">
+            <div class="self-detail">
+
+            </div>
+            <div class="self-detail">
+                  <p>{{request.user.first_name}} {{request.user.last_name}}</p>
+            </div>
+            <div class="self-detail">
+                  <a href="{% url 'letsocial:userfriendslist' request.user.id %}"><i class="fas fa-user-friends" ></i><span>{{friendscount}}</span></a>
+            </div>
+      </div>
+      <form action="{% url 'letsocial:updateuserdescription' %}" method="post">
+            {% csrf_token %}
+            <div class="user-description">
+                  <div>
+                        <textarea name="userdescription" id="" rows="4" maxlength="300" style="resize: none;"
+                              placeholder="Describe yourself in 300 characters">{{userdescription}}</textarea>
+                  </div>
+                  <div>
+                        <input type="submit" value="POST">
+                  </div>
+            </div>
+      </form>
+      <div class="user-action-box">
+            <label for="uploadimages-user" class="userbtnbox-label">
+                  <div class="user_btnbox">
+                        <form action="{% url 'letsocial:uploadimages' %}" id="uploadimgform"
+                              enctype="multipart/form-data" method="post">
+                              {% csrf_token %}
+                              <input type="file" name="images" name="uploadimages-user" id="uploadimages-user"
+                                    accept="image/*" multiple>
+                              <span><i class="fas fa-upload" ></i> Upload Photos</span>
+                        </form>
+                  </div>
+            </label>
+            <div class="user_btnbox_btn">
+                  <a href="{% url 'letsocial:makepost' %}"> <i class="fas fa-plus"></i> Add New Post</a>
+            </div>
+
+            <div class="user_btnbox_btn" id="usergallerybtn">
+                  <button>
+                        <span><i class="fas fa-images"></i> Gallery</span>
+                  </button>
+            </div>
+      </div>
+      <div class="posts">
+            {% if postslist != 'nouserposts' %}
+            <a href="#friendsposts" class="friend-post-link">See Your Friend's Posts</a>
+            <div class="posts-container">
+                  <div class="posts-container-header">
+                        <h3>Your Posts</h3>
+                  </div>
+                  <div class="posts-list">
+                        {% for i in postslist %}
+                        <div class="single-post">
+                              <div class="post-header">
+                                    <div class="posthead-item">
+                                          <div class="posthead-profile">
+                                                <div class="posthead-profile-img">
+                                                      {% if profileimage == None %}
+                                                      <img src="{% static 'letsocial/img/profileavatar.png' %}"
+                                                            class="postprofileimage" alt="">
+                                                      {% else %}
+                                                      <img src="{{profileimage.uploadedprofileimage.url}}" alt=""
+                                                            class="postprofileimage">
+                                                      {% endif %}
+                                                </div>
+                                                <p>{{request.user.first_name}} {{request.user.last_name}}</p>
+                                          </div>
+                                    </div>
+                                    <div class="posthead-item">
+                                          <span class="postoption-dropdownmenu-btn"><i class="fas fa-cog"></i> </span>
+                                          <div class="postoption-dropdownmenu">
+
+                                                <a href="{% url 'letsocial:deletepost' i.0 %}">Delete Post</a>
+                                          </div>
+                                    </div>
+                              </div>
+                              {% if i.3 != "nocontent" %}
+                              <div class="post-content">
+                                    <p>{{i.3}}</p>
+                              </div>
+                              {% endif %}
+                              {% if i.1.0 != 'norichcontent' %}
+                              <div class="post-rich-content">
+                                    <div class="post-img">
+                                          {% for j in i.2 %}
+                                          <img src={{j}} alt="" width="100%" height="auto">
+                                          {% endfor %}
+                                    </div>
+                              </div>
+                              {% endif %}
+                              <div class="post-footer">
+                                    <a href="{% url "letsocial:postcommentpage" i.0 %}" class="show-comment-btn">Comments <span class="comment-count">{{i.4}}</span></a>
+                              </div>
+                        </div>
+                        {% endfor %}
+                  </div>
+            </div>
+            {% endif %}
+            {% if friendpostslist != 'nouserposts' %}
+            <div class="posts-container" id="friendsposts">
+                  <div class="posts-container-header">
+                        <h3>Friend's Posts</h3>
+                  </div>
+                  <div class="posts-list">
+                        {% for i in friendpostslist %}
+                        <div class="single-post">
+                              <div class="post-header">
+                                    <div class="posthead-item">
+                                          <div class="posthead-profile">
+                                                <div class="posthead-profile-img">
+                                                      {% if profileimage == None %}
+                                                      <img src="{% static 'letsocial/img/profileavatar.png' %}"
+                                                            class="postprofileimage" alt="">
+                                                      {% else %}
+                                                      <img src="{{i.6.uploadedprofileimage.url}}" alt=""
+                                                            class="postprofileimage">
+                                                      {% endif %}
+                                                </div>
+                                                <p>{{i.4}} {{i.5}}</p>
+                                          </div>
+                                    </div>
+                                    <div class="posthead-item">
+                                          <span class="postoption-dropdownmenu-btn"><i class="fas fa-cog"></i> </span>
+                                          <div class="postoption-dropdownmenu">
+
+                                                <a>Report Post</a>
+                                          </div>
+                                    </div>
+                              </div>
+                              {% if i.2 != "nocontent" %}
+                              <div class="post-content">
+                                    <p>{{i.2}}</p>
+                              </div>
+                              {% endif %}
+                              {% if i.1.0 != 'norichcontent' %}
+                              <div class="post-rich-content">
+                                    <div class="post-img">
+                                          {% for j in i.1 %}
+                                          <img src={{j}} alt="" width="100%" height="auto">
+                                          {% endfor %}
+                                    </div>
+                              </div>
+                              {% endif %}
+                              <div class="post-footer">
+                                    <a href="{% url "letsocial:postcommentpage" i.0 %}" class="show-comment-btn">Comments <span class="comment-count">{{i.7}}</span></a>
+                              </div>
+                        </div>
+                        {% endfor %}
+                  </div>
+            </div>
+            {% endif %}
+      </div>
+
+
+      <!-- images upload box -->
+
+      <div class="img-uploaded-modal" id="imguploadedmodal">
+            <div class="img-uploaded-container">
+                  <div class="img-uploaded-header">
+                        <h2>Do you want to upload these images ?</h2>
+                  </div>
+                  <div class="img-uploaded-content">
+                        <div id="uploadedframe" class="img-uploaded-tabwindow">
+                              <div class="uploaded-img-grid" id="upload-image-grid">
+                              </div>
+                        </div>
+                  </div>
+                  <div class="img-uploaded-footer">
+                        <div class="img-uploaded-functions">
+                              <a class="img-uploaded-btn" id="uploadedclose">Cancel</a>
+                              <a class="img-uploaded-btn" id="imgselectbtn">Upload</a>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <!-- images upload box -->
+
+      <!-- images gallery box -->
+
+      <div class="img-gallery-modal" id="imggallerymodal">
+            <div class="img-gallery-container">
+                  <div class="img-gallery-header">
+                        <h2>Your Gallery</h2>
+                  </div>
+                  <div class="img-gallery-content">
+                        <div id="galleryframe" class="img-gallery-tabwindow">
+                              <form action="{% url 'letsocial:deleteuserimages'  %}" id="deleteimgform" method="post">
+                                    {% csrf_token %}
+                                    <div class="gallery-img-grid" id="gallery-image-grid">
+                                          {% for i in usergallery %}
+                                          <label for="imgthumbnailsign{{forloop.counter}}" class="imgthumbnail">
+                                                <div class="grid-cell">
+                                                      <input type="checkbox" name="images" value="{{i}}"
+                                                            id="imgthumbnailsign{{forloop.counter}}"
+                                                            class="imgthumbnailsign">
+                                                      <img alt="" src='{{i.url}}' class="gridimgforview">
+                                                </div>
+                                          </label>
+                                          {% endfor %}
+                                    </div>
+                              </form>
+                        </div>
+                  </div>
+                  <div class="img-gallery-footer">
+                        <div class="img-gallery-functions">
+                              <button class="img-gallery-btn" id="gallerymark">Mark</button>
+                              <button class="img-gallery-btn" id="galleryunmark">Unmark</button>
+                              <button class="img-gallery-btn" id="gallerydeletebtn">Delete</button>
+                              <button class="img-gallery-btn" id="galleryclose">Close</button>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <!-- images gallery box -->
+
+      <!-- img view box -->
+      <div class="img-gallery-modal" id="imgview">
+            <span id="closeimgview">X</span>
+            <img src={{usergallery.0.url}} alt="" id="bigimage">
+      </div>
+      <!-- img view box -->
+</div>
+
+<script>
+      let uploadimagesuser = document.getElementById('uploadimages-user');
+      let uploadimagegrid = document.getElementById('upload-image-grid');
+      let galleryimagegrid = document.getElementById('gallery-image-grid');
+      let imgthumbnailsigns = document.getElementsByClassName('imgthumbnailsign');
+      let gridimgforview = document.getElementsByClassName('gridimgforview');
+      let postoptiondropdownmenubtn = document.getElementsByClassName('postoption-dropdownmenu-btn');
+
+      uploadimagesuser.oninput = function () {
+            for (i = 0; i < uploadimagesuser.files.length; i++) {
+                  uploadimagegrid.innerHTML += `<label for="imgthumbnailsign" class="imgthumbnail">
+                                    <div class="grid-cell">           
+                                          <img  alt="" src=`+ URL.createObjectURL(uploadimagesuser.files[i]) + `>
+                                    </div>
+                              </label>`
+            }
+            imguploadedmodal.style.display = 'flex';
+      }
+
+      uploadedclose.onclick = function () {
+            imguploadedmodal.style.display = 'none';
+            uploadimagegrid.innerHTML = ''
+      }
+
+      galleryclose.onclick = function () {
+            imggallerymodal.style.display = 'none';
+      }
+
+      usergallerybtn.onclick = function () {
+            imggallerymodal.style.display = 'flex';
+
+      }
+
+      imgselectbtn.onclick = function () {
+            uploadimgform.submit()
+      }
+
+      galleryunmark.onclick = function () {
+            imgviewerfunction()
+            gallerymark.style.background = "rgb(8, 123, 255)"
+      }
+
+      closeimgview.onclick = function () {
+            imgview.style.display = 'none'
+      }
+
+      gallerymark.onclick = function () {
+            for (r = 0; r < imgthumbnailsigns.length; r++) {
+                  imgthumbnailsigns[r].disabled = false
+                  imgthumbnailsigns[r].onchange = function () {
+                        if (this.checked) {
+                              this.parentElement.classList.add('imgselected');
+                        }
+                        else {
+                              this.parentElement.classList.remove('imgselected');
+                        }
+                  }
+            }
+            for (i = 0; i < gridimgforview.length; i++) {
+                  gridimgforview[i].onclick = function () {
+                        bigimage.src = ''
+                        imgview.style.display = 'none'
+                  }
+            }
+            gallerymark.style.background = 'purple'
+      }
+
+      function imgviewerfunction() {
+            for (r = 0; r < imgthumbnailsigns.length; r++) {
+                  imgthumbnailsigns[r].parentElement.classList.remove('imgselected');
+                  imgthumbnailsigns[r].disabled = true
+            }
+
+            for (i = 0; i < gridimgforview.length; i++) {
+                  gridimgforview[i].onclick = function () {
+                        bigimage.src = this.src
+                        imgview.style.display = 'flex'
+                  }
+            }
+      }
+
+      imgviewerfunction()
+
+      gallerydeletebtn.onclick = function () {
+            deleteimgform.submit()
+      }
+
+      updateprofilephotoinput.oninput = function () {
+            updateprofilephoto.submit()
+      }
+
+      for (i = 0; i < postoptiondropdownmenubtn.length; i++) {
+            postoptiondropdownmenubtn[i].onclick = function () {
+                  if (this.nextElementSibling.classList.contains('showpostoptiondropdown') == true) {
+                        // console.log(this.nextElementSibling.classList.contains('showpostoptiondropdown'))
+                        this.nextElementSibling.classList.remove('showpostoptiondropdown')
+                  }
+
+                  else if (this.nextElementSibling.classList.contains('showpostoptiondropdown') == false) {
+                        this.nextElementSibling.classList.add('showpostoptiondropdown')
+
+                  }
+            }
+
+      }
+
+
+</script>
+
+
+{% endblock %}

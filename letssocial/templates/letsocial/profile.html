@@ -1,0 +1,33 @@
+{% extends 'letsocial/base.html' %}
+{% load static %}
+{% block linkcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/profilepage.css' %}">{% endblock %}
+{% block nav4class %}activenavbtn{% endblock %}
+{% block body %}
+
+<div class="profile-container">
+    <h2>Hello, {{request.user.username}}</h2>
+    <div class="profile-option-container">
+        <ul>
+            <li>
+               <a href="{% url 'letsocial:personalinfo' %}">Your Personal Information</a> 
+            </li>
+            
+            <li>
+               <a href="{% url 'letsocial:userfriendslist' request.user.id %}">Your Friends</a> 
+            </li>
+            
+            <li>
+               <a href="{% url 'letsocial:deleteaccount' %}">Delete Account Permanently</a> 
+            </li>
+            
+            <li>
+               <a href="{% url 'letsocial:logoutuser' %}">Logout</a> 
+            </li>
+            
+        </ul>
+
+    </div>
+</div>
+
+{% endblock body %}

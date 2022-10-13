@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Network Login Page</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/loginpage.css' %}">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="heading-cont">
+            <h2>Welcome to Social Network</h2>
+        </div>
+        <form action="{% url 'letsocial:loginuser' %}" method="post">
+            {% csrf_token %}
+            <div class="form-content">
+                <label for="username">
+                    Username:
+                </label>
+                <input type="text" name="username" class="form-input" id="username">
+                <label for="password">
+                    Password:
+                </label>
+                <input type="password" name="password" class="form-input" id="password">
+                <div class="formlinks">        
+                    <a href="{% url 'letsocial:forgotuserfirst' %}" >Forgot Username</a>
+                    <a href="{% url 'letsocial:forgotpassuser' %}" >Forgot Password</a>
+                </div>
+              
+                <div class="formbtn">
+                    <input type="submit" value="Login">
+                   
+                </div>
+              
+                <div class="formbtn">
+                                
+                    <a href="{% url 'letsocial:registerpage' %}" >Register</a>
+                    
+                </div>
+
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

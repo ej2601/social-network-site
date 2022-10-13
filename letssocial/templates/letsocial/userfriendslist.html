@@ -1,0 +1,105 @@
+{% extends 'letsocial/base.html' %}
+{% load static %}
+{% block linkcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/friendspage.css' %}">{% endblock %}
+{% block body %}
+
+{% if friendslist != None %}
+<div class="friendspagesection">
+    <!-- friend's page header -->
+    <div class="friendspage-heading">
+        <h2>Friends</h2>
+    </div>
+
+    <div class="content-container">
+
+        <!-- search bar to search friend -->
+
+        <div class="friend-searchbar">
+            <label for="friendsearch">
+                <span>Find a Friend:</span>
+                <input type="search" name="friendsearch" id="friendsearch" required>
+            </label>
+        </div>
+
+        <!-- list of friend of your region -->
+
+        <div class="friend-list-container">
+            <ul class="friend-list">
+
+                {% for i in userlist %}
+                {% if i.0.first_name != '' %}
+                {% if i.0.username in friendslist %}
+
+                <li class="otherperson-profile friendnames" id="{{i.0.first_name}}{{i.0.last_name}}">
+                    <div class="otherperson-flexbox">
+                        <div class="otherperson-detail">
+                            <div class="otherperson-profile-photo">
+                                {% if i.1 == None %}
+                                <img src="{% static " letsocial/img/profileavatar.png" %}" alt="">
+                                {% else %}
+                                <img src={{i.1.uploadedprofileimage.url}} alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="otherperson-name">
+                                <a href="{% url 'letsocial:otherpersonprofileview' i.0.id %}">{{i.0.first_name}}
+                                    {{i.0.last_name}}</a>
+                            </div>
+                        </div>
+
+                        <div class="otherperson-addfriend">
+                            {% if i.0.username in people_who_are_not_friend_of_user.0 %}
+                            <a class="profilebtns cancelfriendrequestbtn"
+                                href="{% url 'letsocial:cancelfriendrequest' i.0.username %}"><i
+                                    class='fas fa-user-minus'></i></a>
+
+                            {% elif i.0.username in people_who_are_not_friend_of_user.3 %}
+                            <a href="{% url 'letsocial:chatpage' request.user.username i.0.username %}" class="profilebtns chatfriendbtn"><i class="fas fa-comment-dots"></i></a>
+
+                            {% elif i.0.username == request.user.username %}
+                            <a href="{% url 'letsocial:otherpersonprofileview' i.0.id %}"
+                                class="profilebtns viewfriendbtn">View Profile</a>
+
+                            {% elif i.0.username in people_who_are_not_friend_of_user.1 %}
+                            <a class=" profilebtns acceptfriendbtn  "
+                                href="{% url 'letsocial:acceptrequest' i.0.username %}">Accept</a>
+                            <a class=" profilebtns rejectfriendbtn  "
+                                href="{% url 'letsocial:rejectrequest' i.0.username %}">Reject</a>
+
+                            {% else %}
+                            <a class="profilebtns addfriendbtn" href="{% url 'letsocial:addfriend' i.0.id %}"><i
+                                    class='fas fa-user-plus'></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </ul>
+
+        </div>
+
+    </div>
+</div>
+{% endif %}
+
+<script>
+    var friendnameslist = document.getElementsByClassName("friendnames");
+    friendsearch.oninput = function () {
+        // console.log(friendsearch.value)
+        for (i = 0; i < friendnameslist.length; i++) {
+            searchstr = friendnameslist[i].id.toString().toLowerCase().search(friendsearch.value.toString().toLowerCase())
+            if (searchstr == -1) {
+                friendnameslist[i].style.display = "none";
+            }
+            else {
+                friendnameslist[i].style.display = "block";
+            }
+        }
+
+    }
+</script>
+
+{% endblock %}

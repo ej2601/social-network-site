@@ -1,0 +1,70 @@
+{% extends 'letsocial/base.html' %}
+{% load static %}
+{% block linkcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/peoplespage.css' %}">{% endblock %}
+{% block nav2class %}activenavbtn{% endblock %}
+{% block body %}
+
+<!-- people's page header -->
+<div class="peoplespage-heading">
+    <h1>People</h1>
+</div>
+
+<div class="content-container">
+
+    <!-- search bar to search people -->
+
+    <div class="people-searchbar">
+        <form action="{% url "letsocial:peoplesearchpage" %}" method="post">
+            {% csrf_token %}
+            <label for="peoplesearch">
+                <span>Find a Person:</span>
+                <input type="search" name="peoplesearch" id="peoplesearch" required>
+            </label>
+            <input type="submit" id="people-searchbtn" value="Search">
+        </form>
+    </div>
+
+    <!-- list of people of your region -->
+
+    <div class="people-list-container">
+        <ul class="people-list">
+            {% for i in userlist %}
+            {% if i.0.first_name != '' %}
+            <li class="otherperson-profile">
+                <div class="otherperson-flexbox">
+                    <div class="otherperson-detail">
+                        <div class="otherperson-profile-photo">
+                            {% if i.1 == None %}
+                            <img src="{% static "letsocial/img/profileavatar.png" %}" alt="">
+                            {% else %}
+                            <img src={{i.1.uploadedprofileimage.url}} alt="">
+                            {% endif %}
+                        </div>
+                  
+                        <div class="otherperson-name">
+                            <a href="{% url 'letsocial:otherpersonprofileview' i.0.id %}">{{i.0.first_name}} {{i.0.last_name}}</a>
+                        </div>
+                    </div>
+                   
+                    <div class="otherperson-addfriend">
+                        {% if i.0.username in frslist.0 %}
+                        <a class="peoplebtns cancelfriendrequestbtn" href="{% url 'letsocial:cancelfriendrequest' i.0.username %}"><i class='fas fa-user-minus' ></i></a>          
+                        {% elif i.0.username in frslist.2 %}
+                        <a href='{% url 'letsocial:otherpersonprofileview' i.0.id %}' class="peoplebtns viewfriendbtn">View Profile</a>        
+                        {% else %}
+                        <a class="peoplebtns addfriendbtn" href="{% url 'letsocial:addfriend' i.0.id %}"><i class='fas fa-user-plus' ></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

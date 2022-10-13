@@ -1,0 +1,220 @@
+{% extends 'letsocial/base.html' %}
+{% load static %}
+{% block linkcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/makepost.css' %}">{% endblock %}
+{% block nav1class %}activenavbtn{% endblock %}
+{% block body %}
+<div class="newpost-header">
+    <h2>New Post</h2>
+</div>
+<div class="postform-container">
+    <form action="{% url 'letsocial:postcreated' %}" method="post">
+        {% csrf_token %}
+        <div class="post-content">
+            <textarea name="posttext" id="" rows="15" required>
+            </textarea>
+            <div class="post-rich-content" id="postrcontent">
+                <div class="post-img-contentflex" id="postimgcontent">
+
+                </div>
+                <!-- <p id="demo"></p> -->
+            </div>
+        </div>
+
+        <div class="post-btn">
+            <a onclick="" id="addimg">Add Image</a>
+            <input type="submit" value="Make Post">
+        </div>
+    </form>
+</div>
+
+<div class="img-gallery-modal" id="imggallerymodal">
+    <div class="img-gallery-container">
+        <div class="img-gallery-header">
+            <h2>Add Image</h2>
+        </div>
+        <div class="img-gallery-content">
+            <div class="img-gallery-tabs">
+                <a class="gallery-link active-tab" id="0">Gallery</a>
+                <a class="gallery-link " id="1">Upload Photo</a>
+            </div>
+            <div id="galleryframe" class="img-gallery-tabwindow active-tabwindow">
+                {% load static %}
+                <div class="gallery-img-grid">
+                    {% for i in usergallery %}
+                    <label for="imgthumbnailsign{{forloop.counter}}" class="imgthumbnail">
+                        <div class="grid-cell">
+                            <input type="checkbox" name="" value="{{i}}" id="imgthumbnailsign{{forloop.counter}}"
+                                class="imgthumbnailsign">
+                            <img src="{{i.url}}" alt="">
+                        </div>
+                    </label>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div id="galleryframe" class="img-gallery-tabwindow">
+                {% load static %}
+                <div class="gallery-img-grid">
+                    <label for="uploadimages-user" class="userbtnbox-label">
+                        <div class="user_btnbox">
+                            <form action="{% url 'letsocial:uploadimages' %}" id="uploadimgform"
+                                enctype="multipart/form-data" method="post">
+                                {% csrf_token %}
+                                <input type="file" name="imagesfrompost" name="uploadimages-user" id="uploadimages-user"
+                                    accept="image/*" multiple>
+                                <span>Upload Image</span>
+                            </form>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="img-gallery-footer">
+            <div class="img-gallery-functions">
+                <a class="img-gallery-btn" id="galleryclose">Cancel</a>
+                <a class="img-gallery-btn" id="imgselectbtn">Choose</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- images upload box -->
+
+<div class="img-uploaded-modal" id="imguploadedmodal">
+    <div class="img-uploaded-container">
+        <div class="img-uploaded-header">
+            <h2>Do you want to upload these images ?</h2>
+        </div>
+        <div class="img-uploaded-content">
+            <div id="uploadedframe" class="img-uploaded-tabwindow">
+                <div class="uploaded-img-grid" id="upload-image-grid">
+                </div>
+            </div>
+        </div>
+        <div class="img-uploaded-footer">
+            <div class="img-uploaded-functions">
+                <a class="img-uploaded-btn" id="uploadedclose">Cancel</a>
+                <a class="img-uploaded-btn" id="imguploadbtn">Upload</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- images upload box -->
+
+
+<script>
+
+    let add_image = document.getElementById('addimg');
+    let imggallerymodal = document.getElementById('imggallerymodal');
+    let galleryclose = document.getElementById('galleryclose');
+    let galleryframe = document.getElementById('galleryframe');
+    let imgselectbtn = document.getElementById('imgselectbtn');
+    let imgthumbnailsigns = document.getElementsByClassName('imgthumbnailsign')
+    let demo = document.getElementById('demo');
+    let postrcontent = document.getElementById('postrcontent');
+    let postimgcontent = document.getElementById('postimgcontent');
+    let imgcontentboxclose = document.getElementsByClassName('imgcontentboxclose-inpost');
+    let gallerylink = document.getElementsByClassName('gallery-link');
+    let imggallerytabwindow = document.getElementsByClassName('img-gallery-tabwindow');
+    let uploadimagesuser = document.getElementById('uploadimages-user');
+    let uploadimagegrid = document.getElementById('upload-image-grid');
+
+    uploadimagesuser.oninput = function () {
+        for (i = 0; i < uploadimagesuser.files.length; i++) {
+            uploadimagegrid.innerHTML += `<label for="imgthumbnailsign" class="imgthumbnail">
+                                <div class="grid-cell">           
+                                      <img  alt="" src=`+ URL.createObjectURL(uploadimagesuser.files[i]) + `>
+                                </div>
+                          </label>`
+        }
+        imguploadedmodal.style.display = 'flex';
+    }
+
+    uploadedclose.onclick = function () {
+        imguploadedmodal.style.display = 'none';
+        uploadimagegrid.innerHTML = ''
+    }
+
+    imguploadbtn.onclick = function () {
+            uploadimgform.submit()
+      }
+
+    function imgcontentclosefunc() {
+        this.parentElement.remove()
+    }
+
+    function changetab() {
+        for (i = 0; i < gallerylink.length; i++) {
+            gallerylink[i].classList.remove('active-tab')
+            imggallerytabwindow[i].classList.remove('active-tabwindow')
+        }
+        this.classList.add('active-tab')
+        imggallerytabwindow[this.id].classList.add('active-tabwindow')
+
+    }
+
+    for (j = 0; j < gallerylink.length; j++) {
+        gallerylink[j].onclick = changetab
+    }
+
+
+    add_image.onclick = function () {
+        imggallerymodal.style.display = 'flex';
+    }
+
+    galleryclose.onclick = function () {
+        imggallerymodal.style.display = 'none';
+    }
+
+    imgselectbtn.onclick = function () {
+        for (i = 0; i < imgthumbnailsigns.length; i++) {
+            if (imgthumbnailsigns[i].checked) {
+
+                imgcontentbox = document.createElement('DIV');
+                imgcontentbox.setAttribute("class", "imgcontentbox-inpost")
+
+                imgcontentboxclosebtn = document.createElement('SPAN');
+                imgcontentboxclosebtn.onclick = imgcontentclosefunc
+                imgcontentboxclosebtn.append("X")
+                imgcontentboxclosebtn.setAttribute("class", "imgcontentboxclose-inpost")
+
+                imgcontent = document.createElement('IMG');
+                imgcontent.setAttribute("src", imgthumbnailsigns[i].nextElementSibling.src)
+                imgcontent.setAttribute("class", "imgcontent-inpost")
+
+                imgcontentinput = document.createElement('INPUT');
+                imgcontentinput.setAttribute("type", "text");
+                imgcontentinput.setAttribute("name", "imagesforpost");
+                imgcontentinput.setAttribute("value", imgthumbnailsigns[i].nextElementSibling.src);
+                imgcontentinput.setAttribute("class", "imgcontentinput");
+
+                imgcontentbox.appendChild(imgcontent)
+                imgcontentbox.appendChild(imgcontentboxclosebtn)
+                imgcontentbox.appendChild(imgcontentinput)
+
+                postimgcontent.append(imgcontentbox)
+                // demo.innerHTML += imgthumbnailsigns[i].value
+            }
+        }
+        imggallerymodal.style.display = 'none';
+    }
+
+    for (r = 0; r < imgthumbnailsigns.length; r++) {
+        imgthumbnailsigns[r].onchange = function () {
+            if (this.checked) {
+                this.parentElement.classList.add('imgselected');
+            }
+            else {
+                this.parentElement.classList.remove('imgselected');
+            }
+        }
+    }
+
+
+
+
+</script>
+
+{% endblock %}
