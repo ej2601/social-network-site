@@ -3,22 +3,24 @@
 {% block linkcss %}
 <link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/index.css' %}">{% endblock %}
 
-{% block nav1class %}activenavbtn{% endblock %}
+{% block nav1class %}active-navbtn{% endblock %}
 {% block body %}
 
 <div class="container">
+      
+      {% comment %} user profile image section {% endcomment %}
       {% if profileimage == None %}
-      <div class="userprofileimgbox">
+      <div class="user-profile-imagebox">
             {% else %}
-            <div class="userprofileimgbox profileuserimage"
+            <div class="user-profile-imagebox animate-profile-image"
                   style="background-image: url({{profileimage.uploadedprofileimage.url}}); background-blend-mode:luminosity; background-color: rgb(236, 254, 236);">
-                  <div id="profileimageoption">
+                  <div id="delete-profile-image-btn">
                         <a href="{% url 'letsocial:deleteprofileimage' %}"><i class="fas fa-trash"></i> </a>
                   </div>
                   {% endif %}
-                  <label for="updateprofilephotoinput" class="uploadimglabel-profile">
-                        <div class="profile-image-box">
-                              <span class="imguploadbtn-profile">
+                  <label for="updateprofilephotoinput" class="profile-image-label-container">
+                        <div class="profile-image-div-container">
+                              <span>
                                     {% if profileimage == None %}
                                     <img src="{% static 'letsocial/img/profileavatar.png' %}" alt="">
                                     {% else %}
@@ -35,17 +37,20 @@
                   </label>
             </div>
       </div>
-      <div class="user-self-info">
-            <div class="self-detail">
 
+      {% comment %} user self information {% endcomment %}
+      <div class="user-self-info">
+            <div class="user-self-info-item">
             </div>
-            <div class="self-detail">
+            <div class="user-self-info-item">
                   <p>{{request.user.first_name}} {{request.user.last_name}}</p>
             </div>
-            <div class="self-detail">
+            <div class="user-self-info-item">
                   <a href="{% url 'letsocial:userfriendslist' request.user.id %}"><i class="fas fa-user-friends" ></i><span>{{friendscount}}</span></a>
             </div>
       </div>
+      
+      {% comment %} user self description {% endcomment %}
       <form action="{% url 'letsocial:updateuserdescription' %}" method="post">
             {% csrf_token %}
             <div class="user-description">
@@ -58,9 +63,11 @@
                   </div>
             </div>
       </form>
-      <div class="user-action-box">
-            <label for="uploadimages-user" class="userbtnbox-label">
-                  <div class="user_btnbox">
+
+      {% comment %} upload photos, new post, gallery buttons {% endcomment %}
+      <div class="user-action-btn-box">
+            <label for="uploadimages-user" class="user-action-btn-box-label">
+                  <div class="user-upload-images-form">
                         <form action="{% url 'letsocial:uploadimages' %}" id="uploadimgform"
                               enctype="multipart/form-data" method="post">
                               {% csrf_token %}
@@ -70,19 +77,21 @@
                         </form>
                   </div>
             </label>
-            <div class="user_btnbox_btn">
+            <div class="user-action-btn-box-btn">
                   <a href="{% url 'letsocial:makepost' %}"> <i class="fas fa-plus"></i> Add New Post</a>
             </div>
 
-            <div class="user_btnbox_btn" id="usergallerybtn">
+            <div class="user-action-btn-box-btn" id="usergallerybtn">
                   <button>
                         <span><i class="fas fa-images"></i> Gallery</span>
                   </button>
             </div>
       </div>
+
+
       <div class="posts">
             {% if postslist != 'nouserposts' %}
-            <a href="#friendsposts" class="friend-post-link">See Your Friend's Posts</a>
+            <a href="#friendsposts" class="friend-posts-link">See Your Friend's Posts</a>
             <div class="posts-container">
                   <div class="posts-container-header">
                         <h3>Your Posts</h3>
@@ -93,28 +102,28 @@
                               <div class="post-header">
                                     <div class="posthead-item">
                                           <div class="posthead-profile">
-                                                <div class="posthead-profile-img">
+                                                <div class="posthead-profile-img-div">
                                                       {% if profileimage == None %}
                                                       <img src="{% static 'letsocial/img/profileavatar.png' %}"
-                                                            class="postprofileimage" alt="">
+                                                            class="post-profile-image" alt="">
                                                       {% else %}
                                                       <img src="{{profileimage.uploadedprofileimage.url}}" alt=""
-                                                            class="postprofileimage">
+                                                            class="post-profile-image">
                                                       {% endif %}
                                                 </div>
                                                 <p>{{request.user.first_name}} {{request.user.last_name}}</p>
                                           </div>
                                     </div>
                                     <div class="posthead-item">
-                                          <span class="postoption-dropdownmenu-btn"><i class="fas fa-cog"></i> </span>
-                                          <div class="postoption-dropdownmenu">
+                                          <span class="post-dropdown-menu-btn"><i class="fas fa-cog"></i> </span>
+                                          <div class="post-dropdown-menu">
 
                                                 <a href="{% url 'letsocial:deletepost' i.0 %}">Delete Post</a>
                                           </div>
                                     </div>
                               </div>
                               {% if i.3 != "nocontent" %}
-                              <div class="post-content">
+                              <div class="post-text-content">
                                     <p>{{i.3}}</p>
                               </div>
                               {% endif %}
@@ -146,28 +155,28 @@
                               <div class="post-header">
                                     <div class="posthead-item">
                                           <div class="posthead-profile">
-                                                <div class="posthead-profile-img">
+                                                <div class="posthead-profile-img-div">
                                                       {% if profileimage == None %}
                                                       <img src="{% static 'letsocial/img/profileavatar.png' %}"
-                                                            class="postprofileimage" alt="">
+                                                            class="post-profile-image" alt="">
                                                       {% else %}
                                                       <img src="{{i.6.uploadedprofileimage.url}}" alt=""
-                                                            class="postprofileimage">
+                                                            class="post-profile-image">
                                                       {% endif %}
                                                 </div>
                                                 <p>{{i.4}} {{i.5}}</p>
                                           </div>
                                     </div>
                                     <div class="posthead-item">
-                                          <span class="postoption-dropdownmenu-btn"><i class="fas fa-cog"></i> </span>
-                                          <div class="postoption-dropdownmenu">
+                                          <span class="post-dropdown-menu-btn"><i class="fas fa-cog"></i> </span>
+                                          <div class="post-dropdown-menu">
 
                                                 <a>Report Post</a>
                                           </div>
                                     </div>
                               </div>
                               {% if i.2 != "nocontent" %}
-                              <div class="post-content">
+                              <div class="post-text-content">
                                     <p>{{i.2}}</p>
                               </div>
                               {% endif %}
@@ -193,21 +202,21 @@
 
       <!-- images upload box -->
 
-      <div class="img-uploaded-modal" id="imguploadedmodal">
-            <div class="img-uploaded-container">
-                  <div class="img-uploaded-header">
+      <div class="uploaded-img-modal" id="imguploadedmodal">
+            <div class="uploaded-img-container">
+                  <div class="uploaded-img-header">
                         <h2>Do you want to upload these images ?</h2>
                   </div>
-                  <div class="img-uploaded-content">
-                        <div id="uploadedframe" class="img-uploaded-tabwindow">
+                  <div class="uploaded-img-content">
+                        <div id="uploadedframe" class="uploaded-img-tabwindow">
                               <div class="uploaded-img-grid" id="upload-image-grid">
                               </div>
                         </div>
                   </div>
-                  <div class="img-uploaded-footer">
-                        <div class="img-uploaded-functions">
-                              <a class="img-uploaded-btn" id="uploadedclose">Cancel</a>
-                              <a class="img-uploaded-btn" id="imgselectbtn">Upload</a>
+                  <div class="uploaded-img-footer">
+                        <div class="uploaded-img-functions">
+                              <a class="uploaded-img-btn" id="uploadedclose">Cancel</a>
+                              <a class="uploaded-img-btn" id="imgselectbtn">Upload</a>
                         </div>
                   </div>
             </div>
@@ -268,7 +277,7 @@
       let galleryimagegrid = document.getElementById('gallery-image-grid');
       let imgthumbnailsigns = document.getElementsByClassName('imgthumbnailsign');
       let gridimgforview = document.getElementsByClassName('gridimgforview');
-      let postoptiondropdownmenubtn = document.getElementsByClassName('postoption-dropdownmenu-btn');
+      let postoptiondropdownmenubtn = document.getElementsByClassName('post-dropdown-menu-btn');
 
       uploadimagesuser.oninput = function () {
             for (i = 0; i < uploadimagesuser.files.length; i++) {
@@ -355,13 +364,13 @@
 
       for (i = 0; i < postoptiondropdownmenubtn.length; i++) {
             postoptiondropdownmenubtn[i].onclick = function () {
-                  if (this.nextElementSibling.classList.contains('showpostoptiondropdown') == true) {
-                        // console.log(this.nextElementSibling.classList.contains('showpostoptiondropdown'))
-                        this.nextElementSibling.classList.remove('showpostoptiondropdown')
+                  if (this.nextElementSibling.classList.contains('show-post-dropdown-menu') == true) {
+                        // console.log(this.nextElementSibling.classList.contains('show-post-dropdown-menu'))
+                        this.nextElementSibling.classList.remove('show-post-dropdown-menu')
                   }
 
-                  else if (this.nextElementSibling.classList.contains('showpostoptiondropdown') == false) {
-                        this.nextElementSibling.classList.add('showpostoptiondropdown')
+                  else if (this.nextElementSibling.classList.contains('show-post-dropdown-menu') == false) {
+                        this.nextElementSibling.classList.add('show-post-dropdown-menu')
 
                   }
             }

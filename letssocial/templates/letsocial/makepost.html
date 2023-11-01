@@ -4,10 +4,12 @@
 <link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/makepost.css' %}">{% endblock %}
 {% block nav1class %}activenavbtn{% endblock %}
 {% block body %}
-<div class="newpost-header">
+
+<div class="make-post-page-header">
     <h2>New Post</h2>
 </div>
-<div class="postform-container">
+
+<div class="make-post-page-container">
     <form action="{% url 'letsocial:postcreated' %}" method="post">
         {% csrf_token %}
         <div class="post-content">
@@ -102,7 +104,6 @@
 </div>
 
 <!-- images upload box -->
-
 
 <script>
 

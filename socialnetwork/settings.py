@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+STATIC_ROOT = 'static'
 CACHES = {
 'default': {
 'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
@@ -42,6 +42,7 @@ CACHES = {
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,7 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'letssocial.apps.LetssocialConfig',
-    'channels'
 ]
 
 MIDDLEWARE = [

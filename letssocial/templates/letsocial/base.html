@@ -14,30 +14,25 @@
 </head>
 <body>
     <!-- Title of Site -->
-    <div class="titleheading"  >
+    <div class="website-title"  >
         <h1><b>Social Network</b></h1>
     </div>
 
     <!-- this is our navbar -->
-    <div class="navbar">
+    <div class="website-navbar">
         
-
             <a href="{% url 'letsocial:index' %}" class="navbtn {% block nav1class %}{% endblock %}"><i class="fas fa-house-user" ></i>
             </a>
             <a href="{% url 'letsocial:peoplepage' %}" class="navbtn {% block nav2class %}{% endblock %}"><i class="fas fa-users" ></i></a>
             <a href="{% url 'letsocial:friendspage' %}" class="navbtn {% block nav3class %}{% endblock %}"><i class="fas fa-user-friends" ></i></a>
             <a href="{% url 'letsocial:profilepage' %}" class="navbtn {% block nav4class %}{% endblock %}"><i class="fas fa-user-circle" ></i></a>
     
-
     </div>
-
-    
-    
 
 
     {% block body %}{% endblock %}
 
-    <div class="footer">
+    <div class="website-footer">
         <p>Copyright@2022</p>
     </div>
     
