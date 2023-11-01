@@ -1,0 +1,130 @@
+{% extends 'letsocial/base.html' %}
+{% load static %}
+{% block linkcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/chatpage.css' %}">{% endblock %}
+
+{% block body %}
+<div class="chatbox-container">
+    <div class="chatbox-header">
+        <h2>Chat With {{otheruser.first_name}}</h2>
+    </div>
+    <div class="chat-container">
+
+        <div class="chats">
+            {% for i in savedchats %}
+            
+            <div class="chatsbydate">
+                {% if i.0 != today  %}
+                <p>{{i.0}}</p>
+                {% else %}
+                <p>Today</p>
+                {% endif %}
+            </div>
+            
+            {% for j in i.1 %}
+            {% if j.userwhomessage == request.user.username %}
+            <div class="chat-item usermsg">
+            {% else %}
+            <div class="chat-item othermsg">
+            {% endif %}
+                <p>
+                    <span class="msgtext">
+                        {{j.message}}
+                    </span>
+                    <span class="msgtime">{{j.messagetime.time.hour}}:{{j.messagetime.time.minute}}</span>
+                </p>
+            </div>
+            {% endfor %}
+            
+            {% endfor %}
+            
+        </div>
+
+    </div>
+    <div class="chatbox-footer">
+        <div class="chatbox-footer-item">
+            <input class="chat-input" type="text" name="chat-input" id="chat-input">
+        </div>
+        <div class="chatbox-footer-item">
+            <input class="chat-sendbtn" type="submit" id="chat-sendbtn" value="Send">
+        </div>
+    </div>
+
+</div>
+
+
+
+{{chatbetween|json_script:"chatbetween"}}
+
+<script>
+    let chats = document.getElementsByClassName("chats")
+    const chatbetween = JSON.parse(document.getElementById('chatbetween').textContent)
+    console.log(chatbetween)
+    const chatsocket = new WebSocket('ws://'
+        + window.location.host
+        + '/ws/chat/'
+        + chatbetween
+    )
+
+    chatsocket.onmessage = function (e) {
+        const data = JSON.parse(e.data)
+        let userdiv = document.createElement("div");
+        let usermsg = document.createElement('p');
+        let usermsgtext = document.createElement('span');
+        let usermsgtime = document.createElement('span');
+
+            usermsgtext.innerHTML = data.newmsg;
+            usermsgtime.innerHTML = data.messagetime;
+            
+            if (data.personname == `{{request.user.username}}`) {
+                userdiv.setAttribute("class", "chat-item usermsg")        
+            }
+            else {
+                userdiv.setAttribute("class", "chat-item othermsg")
+            }
+   
+            usermsgtext.setAttribute("class", "msgtext")
+            usermsgtime.setAttribute("class", "msgtime")
+            usermsg.appendChild(usermsgtext)
+            usermsg.appendChild(usermsgtime)
+            userdiv.appendChild(usermsg)
+
+            if (data.newmsgdate == "Today"){
+                newmsgdatediv=document.createElement("div");
+                newmsgdatetext=document.createElement('p');
+                newmsgdatediv.setAttribute("class", "chatsbydate")
+                newmsgdatetext.innerHTML="Today"
+                newmsgdatediv.appendChild(newmsgdatetext)
+                chats[0].appendChild(newmsgdatediv)}
+            
+            else if(data.othernewmsgdate == "Today"){
+                newmsgdatediv=document.createElement("div");
+                newmsgdatetext=document.createElement('p');
+                newmsgdatediv.setAttribute("class", "chatsbydate")
+                newmsgdatetext.innerHTML="Today"
+                newmsgdatediv.appendChild(newmsgdatetext)
+                chats[0].appendChild(newmsgdatediv)}    
+
+            chats[0].appendChild(userdiv)
+            userdiv.scrollIntoView(true)
+        
+    };
+
+    chatsocket.onclose = function (e) {
+        console.error("Tumne chat socket band kardiya")
+    };
+
+    document.querySelector("#chat-input").focus()
+
+    document.querySelector("#chat-sendbtn").onclick = function (e) {
+        const chatinputval = document.querySelector("#chat-input").value;
+        chatsocket.send(JSON.stringify({ 'chatmsg': chatinputval, 'person': `{{request.user.username}}`, 'otherperson': `{{otherusername}}` }));
+        document.querySelector("#chat-input").value = '';
+
+    };
+
+
+    // console.log(otheruser)
+
+</script>
+{% endblock %}

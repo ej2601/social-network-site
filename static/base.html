@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Network</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/basic.css' %}">
+    {% block linkcss %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'letsocial/fontawesome-free-6.1.2-web/css/all.min.css' %}">
+    <script src="{% static 'letsocial/fontawesome-free-6.1.2-web/js/all.min.js' %}"></script>
+    
+</head>
+<body>
+    <!-- Title of Site -->
+    <div class="website-title"  >
+        <h1><b>Social Network</b></h1>
+    </div>
+
+    <!-- this is our navbar -->
+    <div class="website-navbar">
+        
+            <a href="{% url 'letsocial:index' %}" class="navbtn {% block nav1class %}{% endblock %}"><i class="fas fa-house-user" ></i>
+            </a>
+            <a href="{% url 'letsocial:peoplepage' %}" class="navbtn {% block nav2class %}{% endblock %}"><i class="fas fa-users" ></i></a>
+            <a href="{% url 'letsocial:friendspage' %}" class="navbtn {% block nav3class %}{% endblock %}"><i class="fas fa-user-friends" ></i></a>
+            <a href="{% url 'letsocial:profilepage' %}" class="navbtn {% block nav4class %}{% endblock %}"><i class="fas fa-user-circle" ></i></a>
+    
+    </div>
+
+
+    {% block body %}{% endblock %}
+
+    <div class="website-footer">
+        <p>Copyright@2022</p>
+    </div>
+    
+</body>
+</html>

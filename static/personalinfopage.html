@@ -1,0 +1,128 @@
+{% extends 'letsocial/base.html' %}
+{% load static %}
+{% block nav4class %}activenavbtn{% endblock %}
+{% block linkcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/personalinfo.css' %}">{% endblock %}
+{% block body %}
+
+<div class="personalinfo-container">
+    {% if alert != None %}
+    {% if alert == 'passchanged' %}
+    <div class="alertbox alertboxsuccess">
+      <p>Your password has been changed.</p>
+    </div>
+    {% elif alert == 'infosave'  %}
+    <div class="alertbox alertboxsuccess">
+        <p>Your information has been saved.</p>
+    </div>
+    {% elif alert == 'oldiswrong'  %}
+    <div class="alertbox alertboxfail">
+        <p>Old password is incorrect.</p>
+    </div>
+    {% elif alert == 'confirmnotmatch'  %}
+    <div class="alertbox alertboxfail">
+        <p>You did not confirm new password.</p>
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="alertbox">
+    </div>
+
+    {% endif %}
+
+
+
+    <div class="infobox">
+        <h2>Personal Info</h2>
+
+        <form action="{% url 'letsocial:changeinfo' %}" method="post" class="infoform">
+            {% csrf_token %}
+            <div class="inforow">
+                <div class="inputdata">
+                    <label for="username">UserName:</label>
+                    <input type="text" id="username" value="{{request.user.username}}" disabled>
+                </div>
+                <div class="inputdata">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" value="{{request.user.password}}" disabled>
+                    <a id="modelopenbtn">Change Password</a>
+                </div>
+                <div class="inputdata">
+                    <label for="firstname">First Name:</label>
+                    <input type="text" name="firstname"  id="firstname" value="{{request.user.first_name}}">
+                </div>
+                <div class="inputdata">
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" id="lastname" name="lastname" value="{{request.user.last_name}}">
+                </div>
+                <div class="inputdata">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="{{request.user.email}}">
+                </div>
+            </div>
+            <div class="formbtn">
+                <input type="submit" value="Save">
+                <a href="">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+
+
+</div>
+
+<div class="chngpassmodel" id="changepasswordmodel">
+    <div class="changepass-container">
+        <div class="chngpassclose" id="closebtn" >
+            <p>X</p>
+        </div>
+        <div class="chngpassheading">
+            <h3>Change Password</h3>
+        </div>
+        <div class="chngpassform">
+            <form action="{% url 'letsocial:changepassword' %}" method="post">
+                {% csrf_token %}
+                <div class="chngpassinputdata">
+                    <label for="oldpass">
+                        Old Password:
+                        <input id="oldpass" name="oldpass" type="password" required>
+                    </label>
+                </div>
+                <div class="chngpassinputdata">
+                    <label for="newpass">
+                        New Password:
+                        <input id="newpass" name="newpass" type="password" required>
+                    </label>
+                </div>
+                <div class="chngpassinputdata">
+                    <label for="confirmpass">
+                        Confirm Password:
+                        <input id="confirmpass" name="confirmpass" type="password" required>
+                    </label>
+                </div>
+                <div class="chngpassbtn">
+                    <input type="submit" value="Change">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+closebtn=document.getElementById('closebtn');
+changepasswordmodel=document.getElementById('changepasswordmodel');
+modelopenbtn=document.getElementById('modelopenbtn');
+
+modelopenbtn.onclick=function(){
+    changepasswordmodel.style.display="block"
+}
+
+closebtn.onclick=function(){
+    changepasswordmodel.style.display="none"
+}
+
+
+</script>
+
+{% endblock %}
