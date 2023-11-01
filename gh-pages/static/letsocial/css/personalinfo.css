@@ -1,0 +1,375 @@
+.personalinfo-container{
+    padding:1px 15px 15px;
+    
+}
+
+.infobox{
+    margin: 0px 0px 25px;
+    padding:20px;
+    box-shadow: 0px 1px 3px 1px rgba(131, 131, 131, 0.904);
+    background-color: rgb(230, 224, 224);
+    border-radius: 5px;
+    border: 1px ridge transparent;
+}
+
+.infobox h2{
+    font-size:40px;
+    font-family:  Verdana, sans-serif;
+    margin-bottom: 10px;
+    color: rgb(128, 59, 79);
+}
+
+.infoform{  
+    padding: 10px;
+}
+
+.inforow{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.inputdata{
+    padding:15px 20px;
+    border: 1px solid transparent;
+    display:block;
+    margin: 8px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.411);
+    box-shadow: 0px 0px 10px 1px rgba(151, 148, 148, 0.329);
+    
+}
+
+.inputdata input, .inputdata label{
+    display:block;
+    font-size: large;
+    font-family: 'Gill Sans', sans-serif;
+}
+
+.inputdata input{
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.inputdata a{
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: rgb(6, 153, 6);
+    color: white;
+    border: 1px solid transparent;
+    box-shadow: 0px 0px 2px 2px rgba(94, 133, 100, 0.534) inset;
+    padding: 10px 2px;
+    margin-top: 5px;
+    cursor: pointer;
+    display: block;
+    width: 150px;
+    text-align: center;
+    
+}
+
+.formbtn{
+    padding: 10px 30px;
+    text-align: right;
+}
+
+.formbtn a ,.formbtn input{
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: rgb(6, 153, 6);
+    color: white;
+    font-size: large;
+    box-shadow: 0px 0px 7px 3px rgba(0, 105, 53, 0.473) inset;
+    padding: 10px 2px;
+    margin-top: 5px;
+    display: inline-block;
+    width: 120px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+}
+
+
+.formbtn input {
+    border: none;
+    cursor: pointer;
+}
+.formbtn input:hover,.inputdata a:hover{
+    background-color: green;
+}
+
+.formbtn a:last-child{
+    box-shadow: 0px 0px 5px 3px rgba(105, 0, 0, 0.473) inset;
+    background-color: rgb(214, 3, 3);
+}
+
+.formbtn a:last-child:hover{
+    background-color: rgba(170, 2, 2, 0.815);
+}
+
+
+/* change password css */
+
+.chngpassmodel{
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.726);
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.changepass-container{
+    padding: 35px;
+    text-align: center;
+    position: relative;
+    top: 15%;
+    margin: auto;
+    width:500px ;
+    border-radius: 20px;
+    box-shadow: 0px 1px 2px 2px rgb(182, 179, 179);
+    background-color:rgb(244 237 237) ;
+}
+.chngpassheading{
+    padding: 20px 10px;
+    border-radius: 20px;
+    background-color: rgba(172, 3, 3, 0.849);
+    margin: 5px 10px;
+}
+
+.chngpassheading h3{
+    color: rgb(255, 255, 255);
+    font-family: 'Gill Sans', sans-serif;
+    font-size: xx-large;
+}
+
+.chngpassclose{
+    text-align: right;
+    position: absolute;
+    right: 8px;
+    padding: 1px 6px;
+    border-radius: 50%;
+    top:10px;
+    cursor: pointer;
+    background-color: red;
+}
+
+.chngpassclose:hover{
+    background-color: rgb(230, 0, 0);
+}
+
+
+.chngpassclose p{
+    text-decoration: none;
+    font-size: large;
+    font-weight: 900;
+    color:white ;
+    font-family:Arial, sans-serif;
+}
+
+.chngpassinputdata{
+    padding: 10px;
+    text-align: left;
+
+}
+.chngpassinputdata input{
+    display: block;
+    width: 100%;
+    padding: 4px 10px;
+    border-radius:5px;
+}
+
+.chngpassinputdata input,.chngpassinputdata label{
+    font-family: 'Lucida Sans', sans-serif;
+    font-size: large;
+}
+
+.chngpassbtn{
+    padding: 8px;
+}
+
+.chngpassbtn input{
+    padding: 10px 20px;
+    background-color: rgb(0, 168, 0);
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.chngpassbtn input:hover{
+    background-color: green;
+}
+
+.alertbox{
+    font-size: larger;
+    top: 0px;
+    margin:0px 0px 3px ;
+    height: 45px;
+    border-radius: 4px;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center; 
+}
+
+.alertboxsuccess{
+    background-color: rgb(206, 255, 206);
+    color: green;
+}
+.alertboxfail{
+    background-color: rgb(255, 206, 206);
+    color: rgb(207, 0, 0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width:640px) {
+    .personalinfo-container{
+        padding:2px 4px;
+    
+    }
+    
+    .infobox{
+        margin: 5px 0px;
+        padding:8px;
+        border: 0px;
+    }
+    
+    .infobox h2{
+        font-size:18px;
+     
+        margin-bottom: 5px;
+       
+    }
+    
+    .infoform{  
+        padding: 2px;
+    }
+    
+    .inforow{
+        display: grid;
+        grid-template-columns: auto;
+    }
+    
+    .inputdata{
+        padding:5px 10px;
+        margin: 5px; 
+    }
+    
+    .inputdata input, .inputdata label{
+        font-size: 12px;
+    }
+    
+    .inputdata input{
+        padding: 8px;
+    }
+    
+    .inputdata a{
+
+        padding: 8px 5px;
+        margin-top: 2px;
+        font-size: 12px;
+        width: 100px;
+        
+    }
+    
+    .formbtn{
+        padding: 5px 10px;
+    }
+    
+    .formbtn a,.formbtn input{
+        
+        padding: 8px 2px;
+        margin-top: 5px;
+        font-size: 12px;
+        width: 80px;
+    }
+    
+    
+    .formbtn a:last-child{
+        box-shadow: 0px 0px 5px 3px rgba(105, 0, 0, 0.473) inset;
+    
+    }
+    
+
+
+/* change password css */
+
+.chngpassmodel{
+    padding: 5px;
+}
+
+.changepass-container{
+    padding: 10px;
+    top: 10%;
+    width:80% ;
+    border-radius: 2px;
+}
+.chngpassheading{
+    padding: 10px 5px;
+    border-radius: 10px;
+    margin: 10px 5px;
+
+}
+
+.chngpassheading h3{
+    font-size: medium;
+}
+
+.chngpassclose{
+    right: 4px;
+    padding: 1px 4px;
+    top:5px;
+    
+}
+
+.chngpassclose p{
+    font-size: 12px;
+}
+
+.chngpassinputdata{
+    padding: 5px;
+}
+
+.chngpassinputdata input{
+    padding: 4px 10px;
+}
+
+.chngpassinputdata input,.chngpassinputdata label{
+    font-size: 14px;
+}
+
+.chngpassbtn{
+    padding: 5px;
+}
+
+.chngpassbtn input{
+    padding: 5px 15px;
+    font-size: 14px;
+}
+
+.alertbox{
+    font-size: smaller;
+    margin:0px 0px 0px ;
+    height: 30px;
+    padding: 0px 15px;
+}
+
+
+
+
+
+
+}

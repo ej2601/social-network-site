@@ -1,0 +1,355 @@
+body {
+    background-image: radial-gradient(rgba(0, 128, 0, 0.178), rgba(194, 255, 194, 0.184), rgba(255, 255, 255, 0.498), rgba(10, 249, 10, 0.206));
+}
+
+.friendspagesection {
+    border: 1px solid transparent;
+    box-shadow: 0px 0px 15px 1px rgba(0, 128, 0, 0.44) inset;
+    padding: 10px;
+}
+
+/* friend page heading */
+.friendspage-heading {
+    background-color: #277202;
+    color: white;
+    font-family: 'Gill Sans', sans-serif;
+    padding: 20px;
+    font-size: 20px;
+    /* border:  ridge rgb(15, 129, 0);
+    border-width: 2px 2px 0px; */
+}
+
+/* friend search bar */
+.friend-searchbar {
+    background-color: rgb(233, 233, 233);
+    color: rgb(18, 74, 0);
+    padding: 15px 5px;
+    border: ridge rgb(218, 218, 218);
+    border-width: 0px 2px;
+}
+
+.friend-searchbar span,
+.friend-searchbar input {
+    display: inline-block;
+    font-size: 18px;
+    font-family: 'Lucida Sans', sans-serif;
+    font-weight: bold;
+}
+
+#friendsearch {
+    outline: none;
+    /* border: none; */
+    padding: 8px;
+    width: 100%;
+    border-radius: 5px;
+    border-color: transparent;
+
+
+}
+
+#friendsearch:focus {
+    border: 2px solid rgb(46, 125, 1);
+
+}
+
+
+/* friend list */
+.friend-list {
+    list-style-type: none;
+}
+
+.friend-list-container {
+    /* border: 2px solid red; */
+    padding: 10px;
+    background-color: rgb(248, 247, 247);
+    border: ridge rgb(218, 218, 218);
+    border-width: 0px 2px 2px;
+}
+
+.otherperson-profile {
+    /* border: 1px solid green; */
+    padding: 6px 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 1px 1px rgb(185, 185, 185) inset;
+}
+
+.otherperson-flexbox {
+    /* border: 2px solid rgb(0, 16, 158);
+    padding: 2px; */
+    display: flex;
+    width: 100%;
+
+}
+
+/* 
+.otherperson-flexbox div {
+    border: 2px solid rgb(255, 136, 0);
+} */
+
+.otherperson-detail {
+    width: 80%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.otherperson-profile-photo {
+    width: 7.5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: rgb(243, 241, 241);
+    box-shadow: 0px 0px 3px 1px rgb(189, 189, 189);
+    padding: 3px;
+}
+
+.otherperson-profile-photo img {
+    border-radius: 50%;
+    width: 100%;
+    height: 60px;
+
+}
+
+
+.otherperson-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.otherperson-name, .recentmsgbox {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'lucida Sans', sans-serif;
+    padding: 0px 5px;
+}
+
+.recentmsgbox{
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.recentmsgbox div{
+    display: flex;
+    /* border:1px solid red; */
+}
+.recentmsgbox div:first-child{
+    align-items: end;
+    
+}
+
+.recentmsgbox small{
+    margin-top: 3px;
+    font-size: 12px;
+    color: rgb(152, 152, 152);
+}
+ 
+.otherperson-name a, .recentmsgbox a {
+    color: black;
+    text-decoration: none;
+}
+
+.otherperson-name:hover, .recentmsgbox:hover {
+    cursor: pointer;
+}
+
+.otherperson-name:hover a, .recentmsgbox:hover a {
+    color: rgb(0, 94, 202);
+    transition: 0.2s;
+}
+
+.otherperson-addfriend {
+    width: 20%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.profilebtns {
+    text-decoration: none;
+    font-size: 20px;
+    font-family: 'Lucida Sans', sans-serif;
+    font-weight: bold;
+    border-radius: 15px;
+    padding: 15px 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.chatfriendbtn {
+    background-color: rgb(131, 154, 125);
+    color: white;
+}
+
+.chatfriendbtn:hover {
+    background-color: rgb(0, 139, 23);
+    transition: 0.3s;
+}
+
+.acceptfriendbtn,
+.rejectfriendbtn {
+    font-size: 20px;
+    margin: 0px 2px;
+}
+
+
+.otherperson-addfriend .acceptfriendbtn {
+    background-color: rgb(30, 137, 30);
+    color: white;
+}
+
+.otherperson-addfriend .acceptfriendbtn:hover {
+    background-color: rgb(0, 111, 0);
+    transition: 0.2s;
+}
+
+.cancelfriendrequestbtn,
+.rejectfriendbtn {
+    background-color: rgb(196, 0, 0);
+    color: white;
+}
+
+.cancelfriendrequestbtn:hover,
+.rejectfriendbtn:hover {
+    background-color: rgb(163, 0, 0);
+    transition: 0.2s;
+}
+
+
+
+.addfriendbtn{
+    background-color: rgb(30, 137, 30);
+    color: white;
+}
+
+.addfriendbtn:hover{
+    background-color: rgb(0, 111, 0);
+    transition: 0.2s;
+}
+
+
+.cancelfriendrequestbtn{
+    background-color: rgb(196, 0, 0);
+    color: white;
+}
+
+ .cancelfriendrequestbtn:hover{
+    background-color: rgb(163, 0, 0);
+    transition: 0.2s;
+}
+
+
+.viewfriendbtn{
+    background-color: rgb(169, 132, 0);
+    color: white;
+}
+
+.viewfriendbtn:hover{
+    background-color: rgb(156, 106, 0);
+    transition: 0.2s;
+}
+
+
+@media screen and (max-width:700px) {
+
+    /* friend page heading */
+    .friendspage-heading {
+        padding: 20px;
+        font-size: 14px;
+    }
+
+    /* friend search bar */
+    .friend-searchbar {
+        padding: 8px;
+    }
+
+    .friend-searchbar span,
+    .friend-searchbar input {
+        font-size: 14px;
+    }
+
+    #friendsearch {
+        padding: 8px;
+        width: 100%;
+    }
+
+
+    #friend-searchbtn {
+        padding: 8px;
+        width: 100%;
+        margin-top: 3px;
+    }
+
+    /* friend list */
+    .friend-list-container {
+        padding: 8px;
+    }
+
+    .otherperson-profile {
+        padding: 5px 6px;
+    }
+
+    .otherperson-detail {
+        width: 90%;
+    }
+
+    .otherperson-profile-photo {
+        width: 12%;
+        padding: 1px;
+        height: 38px;
+    }
+
+    .otherperson-profile-photo img {
+        height: 100%;
+        width: 100%;
+
+    }
+
+    .otherperson-name, .recentmsgbox{
+        font-size: 14px;
+        padding: 0px 3px;
+    }
+   
+    .recentmsgbox small{
+        font-size: 10px;
+     }
+
+    .otherperson-addfriend {
+        width: 10%;
+    }
+
+    .profilebtns {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+}
+
+@media screen and (max-width:300px) {
+
+    /* friend list */
+    .friend-list-container {
+        padding: 4px;
+    }
+
+    .otherperson-profile {
+        padding: 5px;
+    }
+
+    .otherperson-profile-photo {
+        width: 15%;
+    }
+
+    .otherperson-name,.recentmsgbox {
+        font-size: 10px;
+    }
+
+    .recentmsgbox small{
+        font-size: 8px;
+     }
+
+    .profilebtns {
+        font-size: 10px;
+    }
+}

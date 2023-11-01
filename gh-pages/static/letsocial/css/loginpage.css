@@ -1,0 +1,227 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: rgba(0, 82, 30, 0.116);
+}
+
+
+.container{
+    margin: 30px 70px;
+    background-color: rgb(230, 221, 221);
+    text-align: center;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0px 2px 1px 4px rgba(204, 198, 198, 0.801);
+    
+}
+
+
+.form-content{
+   
+    padding:60px 10px ;
+    background-color: rgb(245, 241, 231);
+    
+}
+
+.form-content label{
+    display: block;
+    font-size: x-large;
+    font-family:Georgia, serif;
+}
+.heading-cont{
+    
+    font-size: xx-large;
+    padding: 35px 40px;
+    background-color:  rgb(39 114 2);
+    color:whitesmoke;
+    font-family: 'Segoe UI';
+    
+   
+}
+
+.form-input{
+    display: inline-block;
+    font-size: larger;
+    padding: 8px 15px;
+    border-radius: 10px;
+    margin: 3px 0 10px 0;
+    width:400px;
+    
+    
+}
+
+
+.form-input:focus{
+    transition: 0.2s;
+    background-color: rgb(254, 255, 254);  
+    box-shadow: 0px 0px 5px 1px rgb(2, 95, 170);
+  
+}
+
+.formbtn{
+    text-align: center;
+    display: flex;
+
+    justify-content: center;
+    padding:5px;
+
+}
+
+
+.formbtn input,.formbtn a{
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: large;
+    background-color: rgb(57, 101, 243);
+    color:whitesmoke;
+    font-family:'Franklin Gothic Medium';
+    display: block;
+    
+}
+.formbtn input{
+    padding:10px 32px;
+}
+
+.formbtn input:hover,.formbtn a:hover{
+    transition: 0.3s;
+    background-color: rgba(4, 143, 15, 0.973);
+
+}
+
+.formbtn a{
+    padding:10px 20px;
+    font-size:larger;
+    text-decoration: none;
+    border: 2px solid black;
+}
+
+.formlinks{
+    text-align: center;
+    padding: 10px;
+}
+
+.formlinks a{
+    font-size: larger;
+    margin: 2px 10px;
+}
+
+.formlinks a:hover{
+    color:green;
+}
+
+
+
+.formrow{
+    display: grid;
+    grid-template-columns: auto auto;
+   
+}
+
+.formrowitem select{
+    display: inline-block;
+    font-size: larger;
+    padding: 8px 15px;
+    border-radius: 0px;
+    margin: 3px 0 10px 0;
+    width:400px;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width:540px) {
+    .container{
+        margin: 150px 20px;
+  
+        border-radius: 10px;
+        box-shadow: 0px 2px 1px 2px rgba(204, 198, 198, 0.801);
+        
+    }
+    
+    
+    .form-content{
+       
+        padding:20px 5px ;
+       
+    }
+    
+    .form-content label{
+        font-size: medium;
+        font-family:Georgia, serif;
+    }
+    .heading-cont{
+        
+        font-size: medium;
+        padding: 30px 10px;
+        
+       
+    }
+    
+    .form-input{
+       
+        font-size: medium;
+        padding: 8px 15px;
+        margin: 0 0 10px 0;
+        width:200px;
+    }
+    
+   
+    
+    .formbtn input,.formbtn a{
+        border-radius: 10px;
+        font-size: medium;
+   
+        
+    }
+    .formbtn input{
+        padding:10px 30px;
+    }
+    
+    .formbtn a{
+        padding:10px 20px;
+        border: 1px solid black;
+    }
+    
+    .formlinks{
+        padding: 4px 5px;
+    }
+    
+    .formlinks a{
+        font-size: 14px;
+        margin: 8px 2px;
+    }
+
+
+    
+    .formrowitem select{
+        font-size: medium;
+        padding: 8px 15px;
+        margin: 0 0 10px 0;
+        width:200px;
+        
+    }
+    
+    
+
+}
+
+@media screen and (max-width:860px) {
+
+    .formrow{
+        grid-template-columns: auto;
+       
+    }
+}

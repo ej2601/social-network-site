@@ -1,0 +1,117 @@
+{% extends 'letsocial/base.html' %}
+{% load static %}
+{% block linkcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'letsocial/css/otherpersonprofileview.css' %}">{% endblock %}
+{% block body %}
+
+<div class="container">
+      {% if otheruserprofileimg == None %}
+      <div class="userprofileimgbox">
+            {% else %}
+            <div class="userprofileimgbox profileuserimage"
+                  style="background-image: url({{otheruserprofileimg.uploadedprofileimage.url}}); background-blend-mode:luminosity; background-color: rgb(236, 254, 236);">
+                  {% endif %}
+
+                  <label for="updateprofilephotoinput" class="uploadimglabel-profile">
+                        <div class="profile-image-box">
+                              <span class="imguploadbtn-profile">
+                                    {% if otheruserprofileimg == None %}
+                                    <img src="{% static 'letsocial/img/profileavatar.png' %}" alt="">
+                                    {% else %}
+                                    <img src={{otheruserprofileimg.uploadedprofileimage.url}} alt="">
+                                    {% endif %}
+                              </span>
+                        </div>
+                  </label>
+            </div>
+      </div>
+      <div class="user-self-info">
+            <div class="self-detail">
+
+            </div>
+            <div class="self-detail">
+                  <p>{{user.first_name}} {{user.last_name}}</p>
+            </div>
+            <div class="self-detail">
+                  <a href="{% url 'letsocial:userfriendslist' user.id %}"><i class="fas fa-user-friends" ></i><span>{{friendscount}}</span></a>
+            </div>
+      </div>
+            {% if otheruserdesc != '' %}
+            <div class="user-description">
+                        <textarea name="userdescription" id="" rows="4" maxlength="300" style="resize: none;" disabled placeholder="No description">{{otheruserdesc}}</textarea>
+            </div>
+            {% endif %}
+      
+      <div class="posts">
+            {% if userpostlist != 'nouserposts' %}
+            <div class="posts-container">
+                  <div class="posts-list">
+                        {% for i in userpostlist %}
+                        <div class="single-post">
+                              <div class="post-header">
+                                    <div class="posthead-item">
+                                          <div class="posthead-profile">
+                                                <div class="posthead-profile-img">
+                                                      {% if otheruserprofileimg == None %}
+                                                      <img src="{% static 'letsocial/img/profileavatar.png' %}"
+                                                            class="postprofileimage" alt="">
+                                                      {% else %}
+                                                      <img src="{{otheruserprofileimg.uploadedprofileimage.url}}" alt=""
+                                                            class="postprofileimage">
+                                                      {% endif %}
+                                                </div>
+                                                <p>{{user.first_name}} {{user.last_name}}</p>
+                                          </div>
+                                    </div>
+                                    <div class="posthead-item">
+                                          <span class="postoption-dropdownmenu-btn"><i class="fas fa-cog"></i> </span>
+                                          <div class="postoption-dropdownmenu">
+                                                <a>Report</a>
+                                          </div>
+                                    </div>
+                              </div>
+                              {% if i.3 != "nocontent" %}
+                              <div class="post-content">
+                                    <p>{{i.3}}</p>
+                              </div>
+                              {% endif %}
+                              {% if i.2.0 != 'norichcontent' %}
+                              <div class="post-rich-content">
+                                    <div class="post-img">
+                                          {% for j in i.2 %}
+                                          
+                                          <img src=/{{j}} alt="" width="100%" height="auto">
+                                          {% endfor %}
+                                    </div>
+                              </div>
+                              {% endif %}
+                              <div class="post-footer">
+                                    <a href="{% url "letsocial:postcommentpage" i.0 %}" class="show-comment-btn">Comments <span class="comment-count">{{i.4}}</span></a>
+                              </div>
+                        </div>
+                        {% endfor %}
+                  </div>
+            </div>
+            {% endif %}
+
+           
+      </div>
+
+      <script>
+            let postoptiondropdownmenubtn = document.getElementsByClassName('postoption-dropdownmenu-btn');
+            for (i = 0; i < postoptiondropdownmenubtn.length; i++) {
+            postoptiondropdownmenubtn[i].onclick = function () {
+                  if (this.nextElementSibling.classList.contains('showpostoptiondropdown') == true) {
+                        // console.log(this.nextElementSibling.classList.contains('showpostoptiondropdown'))
+                        this.nextElementSibling.classList.remove('showpostoptiondropdown')
+                  }
+
+                  else if (this.nextElementSibling.classList.contains('showpostoptiondropdown') == false) {
+                        this.nextElementSibling.classList.add('showpostoptiondropdown')
+
+                  }
+            }
+
+      }
+      </script>
+{% endblock %}

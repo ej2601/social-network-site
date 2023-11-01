@@ -1,0 +1,475 @@
+.container {
+    background-color: rgb(252, 252, 252);
+}
+
+/* user profile photo  */
+.userprofileimgbox {
+    height: 275px;
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background-image: radial-gradient(rgba(212, 212, 211, 0.229) 10%, rgb(202, 202, 202) 90%);
+    background-attachment: local;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.uploadimglabel-profile {
+    height: 110px;
+    width: 110px;
+    text-align: center;
+    border-radius: 35%;
+    box-shadow: 0px 0px 5px 2px rgb(147, 147, 147);
+    background-color: rgb(214, 214, 214);
+
+}
+
+.profile-image-box {
+    border-radius: 35%;
+    align-items: middle;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+
+}
+
+.profile-image-box img {
+    height: 110px;
+    width: 110px;
+}
+
+@keyframes animateprofileimg {
+    0% {
+        background-position: center center;
+    }
+
+    30% {
+        background-position: top center;
+    }
+
+    50% {
+        background-position: center center;
+    }
+
+    70% {
+        background-position: bottom center;
+    }
+
+    100% {
+        background-position: center center;
+    }
+}
+
+.profileuserimage {
+    animation: animateprofileimg 8s ease-out 0s infinite;
+}
+
+/* user self details  */
+
+.user-self-info {
+    display: grid;
+    grid-template-columns:25% 50% 25%;
+    border-bottom: 2px solid rgb(162, 162, 162);
+}
+
+.self-detail {
+    background-color: rgba(243, 243, 243, 0.73);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(76, 76, 76, 0.529);   
+    
+}
+
+.self-detail:first-child:hover,.self-detail:last-child:hover{
+    cursor: pointer;
+    background-color: rgba(214, 214, 214, 0.869);
+    transition: 0.2s;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.self-detail a{
+    text-decoration: none;
+    /* border: 1px solid red; */
+    display: flex;
+    font-size: 28px;
+    padding: 15px 0px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: rgb(50, 131, 0);
+}
+
+.self-detail a span{
+    background-color: black;
+    color: white;
+    padding: 0px 8px;
+    border-radius: 50%;
+    margin: 0px 10px;
+    font-size: 20px;
+}
+
+.self-detail p {
+    font-size: 28px;
+    font-style: italic;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+/* user self description  */
+.user-description {
+    background-image: radial-gradient(rgb(248, 248, 248) 10%, rgb(226, 226, 226) 90%);
+    text-align: center;
+    display: flex;
+    margin: auto;
+    padding: 2px 0px;
+    justify-content: center;
+}
+
+.user-description div {
+    display: flex;
+    padding: 0px 2px;
+
+}
+
+.user-description div:first-child {
+    flex-grow: 1;
+}
+
+.user-description div:last-child {
+    align-items: flex-end;
+}
+
+.user-description textarea {
+    display: inline;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    margin: 0px;
+    padding: 18px 80px;
+    border: none;
+    font-family:'Franklin Gothic Medium', sans-serif;
+    font-style: italic;
+    font-size: 18px;
+}
+
+/* user self posts  */
+
+.posts {
+    padding: 1px;
+}
+
+.posts-container {
+    border-radius: 5px;
+    margin: 2px 0px;
+}
+
+.posts-container-header {
+    text-align: center;
+    font-size: 24px;
+    background-color: rgb(235, 235, 235);
+    padding: 20px;
+    letter-spacing: 2px;
+    font-family: 'Lucida Sans', sans-serif;
+}
+
+.posts-list {
+    padding: 3px;
+    background-color: rgb(255, 247, 225);
+}
+
+.single-post {
+    border: 1px solid transparent;
+    box-shadow: 0px 1px 2px 1px rgb(170, 172, 170);
+}
+
+.post-header {
+    background-color: rgb(232, 240, 232);
+    padding: 5px;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.posthead-item {
+    display: flex;
+    align-items: center;
+}
+
+.posthead-item span {
+    cursor: pointer;
+    color: rgb(133, 133, 133);
+    padding: 10px;
+}
+.posthead-item span:hover {
+    color: rgb(125, 125, 125);
+}
+
+.postoption-dropdownmenu {
+    background: rgb(236, 236, 236);
+    position: absolute;
+    right: 50px;
+    margin-top: 70px;
+    overflow: hidden;
+    height: 0px;
+    border-radius: 5px;
+}
+
+.postoption-dropdownmenu a {
+    border-radius: 5px;
+    display: block;
+    padding: 9px;
+    color: rgb(21, 21, 21);
+    border: 1px solid blue;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.postoption-dropdownmenu a:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 83, 83);
+    transition: 0.1s;
+    
+}
+
+.showpostoptiondropdown {
+    height: auto;
+}
+
+
+.posthead-item:first-child {
+    justify-content: start;
+}
+
+.posthead-item:last-child {
+    justify-content: end;
+}
+
+.posthead-profile {
+    display: inline-block;
+    padding: 2px 5px;
+
+}
+
+.posthead-profile img {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.posthead-profile-img {
+    display: inline-block;
+    padding: 3px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px 1px rgb(45, 202, 2) inset;
+    background-color: white;
+}
+
+.posthead-profile p {
+    display: inline-block;
+    text-transform: capitalize;
+    font-family: 'Lucida Sans', sans-serif;
+    font-weight: 800;
+    font-size: large;
+    padding: 0px 3px;
+}
+
+.post-content {
+    background-color: white;
+    padding: 8px 10px;
+    border: solid rgba(46, 139, 0, 0.452);
+    border-width: 0px 0px 2px;
+}
+
+.post-rich-content {
+    display: flex;
+    justify-content: center;
+    border: 2px solid rebeccapurple;
+    padding: 5px;
+    border: solid rgba(46, 139, 0, 0.452);
+    border-width: 0px 0px 2px;
+    background-color: whitesmoke;
+}
+
+.post-rich-content img {
+    display: block;
+}
+
+/* show comment button design */
+.show-comment-btn{
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    padding: 15px 2px;
+    background-color: rgb(35 72 19);
+    color:white;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Lucida Sans', sans-serif;
+}
+
+.comment-count{
+    background-color: white;
+    color: rgb(35 72 19);
+    font-size: 14px;
+    padding:4px 8px;
+    border-radius: 50%;
+
+}
+
+
+@media screen and (max-width:830px) {
+
+    /* user profile photo  */
+    .userprofileimgbox {
+        height: 250px;
+    }
+
+    .uploadimglabel-profile {
+        height: 100px;
+        width: 100px;
+    }
+
+    .profile-image-box img {
+        height: 100px;
+        width: 100px;
+        /* border-radius: 35%; */
+    }
+
+    /* user self details  */
+
+    .self-detail {
+        padding: 12px 0px;
+    }
+
+    .self-detail p {
+        font-size: larger;
+    }
+
+    /* user self posts  */
+
+    .posts {
+        padding: 0px;
+    }
+
+    .posthead-profile p {
+        font-size: medium;
+    }
+
+}
+
+
+@media screen and (max-width:640px) {
+
+    /* user profile photo  */
+    .userprofileimgbox {
+        height: 180px;
+    }
+
+    .uploadimglabel-profile {
+        height: 70px;
+        width: 70px;
+    }
+
+    .profile-image-box img {
+        height: 70px;
+        width: 70px;
+    }
+
+    /* user self details  */
+
+    .user-self-info {
+        grid-template-columns: 25% 50% 25%;
+    }
+
+    .self-detail {
+        padding: 0px;
+        }
+
+    .self-detail p, .self-detail a {
+        font-size: 14px;
+    }
+    .self-detail a span{
+        padding: 0px 5px;
+        margin: 0px 5px;
+        font-size: 14px;
+    }
+
+    /* user self description  */
+
+
+    .user-description textarea {
+        font-size: 14px;
+        margin: 1px;
+        padding: 5px 5px;
+    }
+
+    .posts-list {
+        padding: 2px;
+    }
+
+    .post-header {
+        padding: 2px;
+    }
+
+    .posthead-item span {
+        font-size: 14px;
+        padding: 5px;
+    }
+
+    .postoption-dropdownmenu {
+        right: 50px;
+    }
+
+    .postoption-dropdownmenu a {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .posthead-profile {
+        padding: 1px 4px;
+    }
+
+    .posthead-profile img {
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+    }
+
+    .posthead-profile-img {
+        padding: 2px;
+    }
+
+    .posthead-profile p {
+        font-size: 14px;
+        padding: 0px 2px;
+    }
+
+    .post-content {
+        font-size: 14px;
+        padding: 8px 8px;
+    }
+
+    .post-rich-content {
+        padding: 2px;
+    }
+
+    .show-comment-btn{
+        padding: 10px 2px;
+        font-size: 12px;
+        }
+    
+    .comment-count{
+        font-size: 10px;
+     
+    }
+
+
+}
